@@ -26,3 +26,9 @@ Hand-made fixes live in `overrides/` (per-function `.c` files, `ida_types.json`,
 
 CMake with MSVC, x86, Release (`build/cmake/Release/igi2.exe`). `build/image.bin`, written by
 `tools/export_data.py`, is embedded as a resource.
+
+## Thanks
+
+- The [Neonix Modding Team](https://discord.gg/GdXMbbVUcE) and neoxaero (N.M). The IGI 2 PDBs and map files that
+  this project's symbols come from were published in their IGI-NeonixResearch repository, along with their
+  research on the game.
