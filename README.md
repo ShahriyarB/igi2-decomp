@@ -46,6 +46,22 @@ The exe is `build/cmake/Release/igi2.exe`. `build/image.bin`, written by
 `tools/pipeline/export_data.py`, is embedded as a resource. Configuring also writes `.clangd` for
 the IDE.
 
+## Legal
+
+- **No game assets.** This repository holds generated and newly written source, tools and documentation. It
+  contains no models, textures, sounds, levels, scripts or movies from the game, and no original machine code or
+  data: the retail image the exe needs is read from your own copy at build time.
+- **Your own copy.** To build, run or test anything you need the game, installed from your own copy. The project
+  does not provide or point to game files.
+- **Not affiliated.** This is a fan project. It is not affiliated with, endorsed by or sponsored by Innerloop
+  Studios, Codemasters or any current owner of the game. Project I.G.I. and related names are trademarks of their
+  respective owners.
+
+## License
+
+GPL-3.0-or-later ([LICENSE](LICENSE)). The license covers this project's own source and tools; it grants no right in
+the game.
+
 ## Thanks
 
 - The [Neonix Modding Team](https://discord.gg/GdXMbbVUcE). The IGI 2 PDBs and map files that
