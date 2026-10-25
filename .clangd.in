@@ -1,0 +1,49 @@
+# .clangd is written from .clangd.in by CMake at configure time, with this checkout's include path.
+# clangd (the IDE's code analysis) as the build compiles: 32-bit Windows C with MSVC's rules.
+#
+# The decompiled code passes values the decompiler typed _DWORD (an unsigned 4-byte integer) where
+# the game passes struct pointers, and the reverse. On this 32-bit target both are the same 4
+# bytes, and MSVC compiles them with at most a warning (C4047/C4133/C4024). Recent Clang makes
+# these conversions errors in C by default, so without this file the IDE reports hundreds of
+# "errors" in files that build fine. They are turned off here so the real ones stand out.
+CompileFlags:
+  Add:
+    - --target=i686-pc-windows-msvc
+    - -std=c17
+    - -fms-extensions
+    - -fms-compatibility
+    - -I @CMAKE_SOURCE_DIR@/include
+    - -DIGI2_FALLBACK
+    # the decompiler's integer/pointer typing, which MSVC accepts in C
+    - -Wno-incompatible-pointer-types
+    - -Wno-incompatible-function-pointer-types
+    - -Wno-incompatible-pointer-types-discards-qualifiers
+    - -Wno-int-conversion
+    - -Wno-int-to-pointer-cast
+    - -Wno-pointer-to-int-cast
+    - -Wno-pointer-sign
+    - -Wno-void-pointer-to-int-cast
+    # idioms of decompiled code that compile as intended
+    - -Wno-parentheses
+    - -Wno-unused-value
+    - -Wno-unused-variable
+    - -Wno-unused-but-set-variable
+    - -Wno-unused-function
+    - -Wno-tautological-constant-out-of-range-compare
+    - -Wno-tautological-compare
+    - -Wno-microsoft-cast
+    - -Wno-microsoft-enum-forward-reference
+    - -Wno-microsoft-anon-tag
+    - -Wno-language-extension-token
+Diagnostics:
+  Suppress:
+    - incompatible-pointer-types
+    - incompatible-function-pointer-types
+    - int-conversion
+    - err_typecheck_convert_incompatible_pointer
+    - ext_typecheck_convert_incompatible_pointer
+    - ext_typecheck_convert_int_pointer
+    - ext_typecheck_convert_pointer_int
+    - warn_typecheck_convert_incompatible_pointer
+  UnusedIncludes: None
+  MissingIncludes: None

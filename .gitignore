@@ -21,7 +21,7 @@ config.local.json
 __pycache__/
 .venv/
 
-# Import libraries made from the game's DLLs by tools/make_importlibs.py
+# Import libraries made from the game's DLLs by tools/pipeline/make_importlibs.py
 /third_party/lib/
 
 # Build and tool by-products
@@ -33,7 +33,8 @@ __pycache__/
 *.log
 *.bin
 
-# IDE state
+# IDE state (.clangd is written by CMake from .clangd.in)
+/.clangd
 /.idea/
 /.vs/
 /.vscode/

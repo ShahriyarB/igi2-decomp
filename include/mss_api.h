@@ -1,6 +1,6 @@
 /* The Miles Sound System calls the game makes (mss32.dll, Miles 6). The SDK header is not
    available; these follow its API, and every parameter list adds up to the byte count in the
-   DLL's stdcall export name (_AIL_set_3D_position@16 ...): tools/make_importlibs.py checks that.
+   DLL's stdcall export name (_AIL_set_3D_position@16 ...): tools/pipeline/make_importlibs.py checks that.
 
    F32 parameters are declared int: the decompiled calls pass the float's bits (LODWORD(v)),
    which an int parameter forwards unchanged. */

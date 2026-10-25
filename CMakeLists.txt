@@ -6,15 +6,32 @@ if(NOT CMAKE_SIZEOF_VOID_P EQUAL 4)
     message(FATAL_ERROR "IGI 2 builds as 32-bit only: configure with -A Win32")
 endif()
 
-# DirectX 8.1 SDK (d3d8.lib, d3dx8.lib): the Windows SDK no longer ships them
-set(DX8_SDK "E:/.sdks/DXF" CACHE PATH "DirectX 8.1 SDK root")
+# DirectX 8.1 SDK (d3d8.lib, d3dx8.lib): the Windows SDK no longer ships them.
+# -DDX8_SDK=<root>, else config.local.json's "dx8_sdk", else the DXSDK_DIR environment variable
+set(DX8_SDK "" CACHE PATH "DirectX 8.1 SDK root")
+if(NOT DX8_SDK AND EXISTS ${CMAKE_SOURCE_DIR}/config.local.json)
+    file(READ ${CMAKE_SOURCE_DIR}/config.local.json IGI2_CONFIG)
+    string(JSON IGI2_DX8_SDK ERROR_VARIABLE IGI2_CONFIG_ERROR GET "${IGI2_CONFIG}" dx8_sdk)
+    if(NOT IGI2_CONFIG_ERROR)
+        set(DX8_SDK "${IGI2_DX8_SDK}" CACHE PATH "DirectX 8.1 SDK root" FORCE)
+    endif()
+endif()
+if(NOT DX8_SDK AND DEFINED ENV{DXSDK_DIR})
+    set(DX8_SDK "$ENV{DXSDK_DIR}" CACHE PATH "DirectX 8.1 SDK root" FORCE)
+endif()
+if(NOT EXISTS "${DX8_SDK}/lib/d3d8.lib")
+    message(FATAL_ERROR "DirectX 8.1 SDK not found (DX8_SDK='${DX8_SDK}'): set dx8_sdk in config.local.json")
+endif()
 
-file(GLOB_RECURSE IGI2_SOURCES CONFIGURE_DEPENDS src/*.c data/*.c support/*.c)
+# the IDE's code analysis (clangd) gets this checkout's include path
+configure_file(.clangd.in ${CMAKE_SOURCE_DIR}/.clangd @ONLY)
+
+file(GLOB_RECURSE IGI2_SOURCES CONFIGURE_DEPENDS src/*.c data/*.c runtime/*.c)
 
 add_executable(igi2 WIN32 ${IGI2_SOURCES} res/igi2.rc)
 target_include_directories(igi2 PRIVATE include)
 
-# A debugging heap: every game allocation ends at an inaccessible page (support/guardheap.c)
+# A debugging heap: every game allocation ends at an inaccessible page (runtime/guardheap.c)
 option(IGI2_GUARD_HEAP "Catch heap overruns where they happen" OFF)
 if(IGI2_GUARD_HEAP)
     target_compile_definitions(igi2 PRIVATE IGI2_GUARD_HEAP)
@@ -34,9 +51,9 @@ target_compile_options(igi2 PRIVATE
 # every generated file includes igi2.h (2.9 MB of types, prototypes and globals): parse it once.
 # guardheap.c is the allocator igi2.h redirects malloc to, so it must not see that header
 target_precompile_headers(igi2 PRIVATE include/igi2.h)
-set_source_files_properties(support/guardheap.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+set_source_files_properties(runtime/guardheap.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
-# Retail fallback (support/fallback.c): IGI2_FALLBACK=<functions> runs those as the original
+# Retail fallback (runtime/fallback.c): IGI2_FALLBACK=<functions> runs those as the original
 # machine code. Entries must be hot-patchable, every call must reach the entry (no inlining), and
 # no two functions may share code (no identical-code folding).
 option(IGI2_FALLBACK "Let IGI2_FALLBACK send chosen functions to the retail code" ON)
@@ -46,9 +63,9 @@ if(IGI2_FALLBACK)
     target_link_options(igi2 PRIVATE /FUNCTIONPADMIN:5 /OPT:NOICF)
 endif()
 # it allocates with the C runtime directly: igi2.h's guard-heap redirection must not reach it
-set_source_files_properties(support/fallback.c data/fallback_crt.c support/replay_host.c support/fpu.c support/qtask_asm.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
+set_source_files_properties(runtime/fallback.c data/fallback_crt.c runtime/replay_host.c runtime/fpu.c runtime/qtask_asm.c PROPERTIES SKIP_PRECOMPILE_HEADERS ON)
 
-# the retail image the globals live in (build/image.bin, made by tools/export_data.py)
+# the retail image the globals live in (build/image.bin, made by tools/pipeline/export_data.py)
 set_source_files_properties(res/igi2.rc PROPERTIES OBJECT_DEPENDS ${CMAKE_SOURCE_DIR}/build/image.bin)
 
 target_link_libraries(igi2 PRIVATE

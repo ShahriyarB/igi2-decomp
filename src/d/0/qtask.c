@@ -1212,7 +1212,7 @@ void __cdecl QTask_TriggerQTaskEventRecursively(struct QTask_s *ptQTask, __int16
   QTask_nProtectedQTaskStackOffset = v5 - 1;
 }
 
-// override: written as the retail instructions in support/qtask_asm.c (the handlers it calls
+// override: written as the retail instructions in runtime/qtask_asm.c (the handlers it calls
 // read a second argument the retail stack layout supplies; see that file)
 
 // source: d/0/qtask.c:4620  [anchor-callee]

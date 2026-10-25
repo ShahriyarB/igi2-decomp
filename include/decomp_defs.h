@@ -157,7 +157,7 @@ static __inline void *memset32(void *dst, uint32_t value, size_t count)
     return dst;
 }
 
-/* -DIGI2_GUARD_HEAP=ON: the game's allocations end at an inaccessible page (support/guardheap.c) */
+/* -DIGI2_GUARD_HEAP=ON: the game's allocations end at an inaccessible page (runtime/guardheap.c) */
 #ifdef IGI2_GUARD_HEAP
 void *igi2_guard_malloc(size_t n);
 void igi2_guard_free(void *p);

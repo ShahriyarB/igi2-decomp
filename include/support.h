@@ -1,4 +1,4 @@
-/* Hand-written stand-ins for code this build cannot link (support/libraries.c). tools/export_data.py
+/* Hand-written stand-ins for code this build cannot link (runtime/libraries.c). tools/pipeline/export_data.py
    leaves these names out of the generated library declarations. */
 #pragma once
 

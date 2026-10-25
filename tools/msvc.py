@@ -10,7 +10,7 @@ _CACHE = REPO / "build" / "msvc_env.json"
 
 
 def _vcvars():
-    root = load_config().get("vs_dir", r"D:\.files\.vs\2026")
+    root = load_config()["vs_dir"]
     return os.path.join(root, "VC", "Auxiliary", "Build", "vcvars32.bat")
 
 
