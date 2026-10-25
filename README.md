@@ -1,7 +1,7 @@
 # igi2-decomp
 
 A C reconstruction of the *IGI 2: Covert Strike* client (`igi2_1.0.exe`), generated from the retail
-executable with IDA and the leaked build PDBs, and built with MSVC for 32-bit Windows.
+executable with IDA and the build PDBs, and built with MSVC for 32-bit Windows.
 
 Nothing from the original game is in this repository: no executables, DLLs, PDBs, IDA databases or
 image dumps. The tools read those from your own copy.
