@@ -1,0 +1,39 @@
+# Local paths to the retail binaries, PDBs and IDA databases
+config.local.json
+
+# Never commit the original binaries, their symbols or IDA databases
+*.exe
+*.dll
+*.pdb
+*.map
+*.i64
+*.idb
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+
+# Generated
+/build/
+/work/
+/symbols/*.json
+__pycache__/
+.venv/
+
+# Import libraries made from the game's DLLs by tools/make_importlibs.py
+/third_party/lib/
+
+# Build and tool by-products
+*.pyc
+*.obj
+*.lib
+*.exp
+*.ilk
+*.log
+*.bin
+
+# IDE state
+/.idea/
+/.vs/
+/.vscode/

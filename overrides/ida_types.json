@@ -1,0 +1,20 @@
+{
+  "_comment": "Hand-checked IDA prototypes, applied after every automatic step (apply and settle). Each entry was verified against the disassembly; register arguments use IDA's @<reg> syntax.",
+  "Display_RegisterCallback": "void __usercall Display_RegisterCallback(void (__cdecl *pfCB)(void), struct DisplayCallbackChain_s **pptFirst@<edx>)",
+  "Direct3D_RegisterCallback": "void __usercall Direct3D_RegisterCallback(void (__cdecl *pfCB)(void), struct DisplayCallbackChain_s **pptFirst@<edx>)",
+  "Main_RegisterWinProcCallback": "void __cdecl Main_RegisterWinProcCallback(long (__cdecl *pfCB)(struct HWND__ *, unsigned long, unsigned int, long))",
+  "Mouse_Open": "void __cdecl Mouse_Open(void)",
+  "App_Run": "void __cdecl App_Run(void)",
+  "BoneMagicObj_Open": "void __cdecl BoneMagicObj_Open(void)",
+  "Clipping_Open": "void __cdecl Clipping_Open(void)",
+  "Real32_FastAcos": "float __cdecl Real32_FastAcos(float vCos)",
+  "Direct3DRender_ProcessVerticesBone_SSE": "long __usercall Direct3DRender_ProcessVerticesBone_SSE@<eax>(struct Direct3DRender_BoneMesh_t *ptSource@<ecx>, struct LODVirModel_s *ptLODVirModel, struct BoneDynCubeObj_s *ptBoneObj, long iLOD)",
+  "LDebug_SetPrint": "void __usercall LDebug_SetPrint(void (__cdecl *pfPrint)(const char *)@<eax>)",
+  "LDebug_SetLog": "void __usercall LDebug_SetLog(void (__cdecl *pfLog)(const char *)@<eax>)",
+  "LDebug_SetWarning": "void __usercall LDebug_SetWarning(void (__cdecl *pfWarning)(const char *)@<eax>)",
+  "LDebug_SetMessage": "void __usercall LDebug_SetMessage(void (__cdecl *pfMessage)(const char *)@<eax>)",
+  "LDebug_SetAbort": "void __usercall LDebug_SetAbort(void (__cdecl *pfAbort)(void)@<eax>)",
+  "stru_866FAB0": "struct ID3DXBuffer *stru_866FAB0",
+  "0x5986B0": "void __usercall String_UpperInPlace(char *zString@<ecx>)",
+  "0x5AA050": "void __cdecl Water_UpdateInternalDataHandler(struct QTask_s *ptQTask, void *pxContext)"
+}

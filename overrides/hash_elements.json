@@ -1,0 +1,14 @@
+{
+  "_comment": "The element each hash-table insert passes (t->pfCreateElement(t, hash, key, element)). The decompiler drops it with the key, both pushed before the hash call; the key is recovered from the hash call, the element is read from the retail disassembly (the register pushed first) and named here.",
+  "Resource_Register": "ptHead",
+  "WarningLog_RegisterWarning": "v6",
+  "Symbol_Register": "v7",
+  "Sound_RegisterSample": "v9",
+  "SoundSys_RegisterLipsync": "v6",
+  "LightmapInfo_AddLightmapVirModelToEnumeration": "v9",
+  "Config_ParsePlayerMissionData": "v3",
+  "Config_UpdateMissionStats": "v7",
+  "GlassContainer_RegisterGlass": "ptQTask",
+  "GlassContainer_DeSerializeScriptFunction": "igi2_element",
+  "QVMAsm_InstallLabel": "v8"
+}

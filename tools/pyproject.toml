@@ -1,0 +1,9 @@
+[project]
+name = "igi2-decomp-tools"
+version = "0.1.0"
+description = "Symbol, matching and export tooling for the IGI 2 reconstruction"
+requires-python = ">=3.12"
+dependencies = []
+
+[tool.uv]
+package = false

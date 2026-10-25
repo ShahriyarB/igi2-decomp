@@ -1,0 +1,4 @@
+{
+  "_comment": "Final functions whose size-only match is wrong, with the code actually found there",
+  "SoundDefGraph_Close": "0x5986B0 is a 28-byte in-place uppercase of the string in ECX (retail inlined it from _strupr calls in soundsys.c); SoundDefGraph_Close is not in retail"
+}

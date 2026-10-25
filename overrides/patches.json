@@ -1,0 +1,122 @@
+[
+ {
+  "file": "e/3/pc/pc_direct3drender.c",
+  "find": "xmmword_7A28F10 = (IGI2_INT128)*ptSource->ptVertexData;",
+  "replace": "memcpy(&xmmword_7A28F10, ptSource->ptVertexData, 16);",
+  "why": "a 16-byte block copy (movaps) the decompiler typed as a struct cast"
+ },
+ {
+  "file": "h/2/editrigidobjattachedtobone.c",
+  "find": "*((_BYTE *)v4 + v6 - p_ptTail) = *(_BYTE *)v4;",
+  "replace": "*((_BYTE *)v4 + ((char *)v6 - (char *)p_ptTail)) = *(_BYTE *)v4;",
+  "why": "a byte copy at the distance between two buffers"
+ },
+ {
+  "file": "h/2/lightmapinfo.c",
+  "find": "ptRenderContext.tDisplayAreaMin = 0;",
+  "replace": "memset(&ptRenderContext.tDisplayAreaMin, 0, sizeof(ptRenderContext.tDisplayAreaMin));",
+  "why": "zeroing a two-float struct the decompiler wrote as an integer store"
+ },
+ {
+  "file": "j/0/computer/computertextitem.c",
+  "find": "ptQTask[3].tQTaskChildren.ptHead->tQTaskRefList = (struct QReferenceList_s)ComputerMenu_atColor[(_DWORD)ptTail];",
+  "replace": "memcpy(&ptQTask[3].tQTaskChildren.ptHead->tQTaskRefList, &ComputerMenu_atColor[(_DWORD)ptTail], sizeof(struct real32x3_t));",
+  "why": "a 12-byte colour copy into a field the decompiler typed as a different struct"
+ },
+ {
+  "file": "j/0/network/mapcontrol.c",
+  "find": "(struct QTask_s *)((char *)ptPrev\n                                                                 + (char *)ptNetManagerQTask[6].tQTaskRefList.ptMiddle\n                                                                 - (char *)ptNetManagerQTask[6].tQTaskRefList.ptTail\n                                                                 + v3);",
+  "replace": "(struct QTask_s *)((char *)ptPrev + ((char *)ptNetManagerQTask[6].tQTaskRefList.ptMiddle - (char *)ptNetManagerQTask[6].tQTaskRefList.ptTail) + v3);",
+  "why": "tick arithmetic on fields the decompiler typed as pointers: group the difference first"
+ },
+ {
+  "file": "j/0/network/teammanager.c",
+  "find": "**v5 += *v5;",
+  "replace": "**v5 += (int)*v5;",
+  "why": "a 32-bit add of a value the decompiler typed as a pointer"
+ },
+ {
+  "file": "j/0/screens/missionscorescreen.c",
+  "find": "(*v32)->tQTaskRefList.ptTail = (struct QReference_s *)v18[2];",
+  "replace": "*(float *)&(*v32)->tQTaskRefList.ptTail = v18[2];",
+  "why": "a float stored into a field the decompiler typed as a pointer (bits kept)"
+ },
+ {
+  "file": "j/0/weapons/weapon.c",
+  "find": "ptWeaponQTask->ptNext = (struct QTask_s *)pvGammaKickBack[21];",
+  "replace": "*(float *)&ptWeaponQTask->ptNext = pvGammaKickBack[21];",
+  "why": "a float stored into a field the decompiler typed as a pointer (bits kept)"
+ },
+ {
+  "file": "f/1/sound/sounddeftriggeronce.c",
+  "find": "*(struct SoundSysChannelList_t *)&ptQTask[1].eQTaskType = LODWORD(ptChannelList->auData[(_DWORD)ptHead].vChannelData);",
+  "replace": "*(_DWORD *)&ptQTask[1].eQTaskType = LODWORD(ptChannelList->auData[(_DWORD)ptHead].vChannelData);",
+  "why": "a 4-byte store the decompiler typed as a struct copy"
+ },
+ {
+  "file": "f/1/sound/sounddefsound.c",
+  "find": "*(struct SoundSysChannelList_t *)&ptQTask[1].eQTaskType = LODWORD(ptChannelList->auData[(_DWORD)ptPrev].vChannelData);",
+  "replace": "*(_DWORD *)&ptQTask[1].eQTaskType = LODWORD(ptChannelList->auData[(_DWORD)ptPrev].vChannelData);",
+  "why": "a 4-byte store the decompiler typed as a struct copy"
+ },
+ {
+  "file": "j/0/computer/computermap.c",
+  "find": "LOBYTE(eQTaskType) = tContext;",
+  "replace": "LOBYTE(eQTaskType) = *(_BYTE *)&tContext;",
+  "why": "the first byte of a struct local, stored into a register-held value"
+ },
+ {
+  "file": "j/0/humanai/humanai.c",
+  "find": "LODWORD(ptHumanAI->tCommon.tAimPosition.vZ) = tContext;",
+  "replace": "LODWORD(ptHumanAI->tCommon.tAimPosition.vZ) = *(_DWORD *)&tContext;",
+  "why": "the first dword of a struct local"
+ },
+ {
+  "file": "j/0/objects/glasscontainer.c",
+  "find": "Script_EvalArgInt(ptArgList, 1);",
+  "replace": "int igi2_element = Script_EvalArgInt(ptArgList, 1);",
+  "why": "the value is the element the hash-table insert below passes (overrides/hash_elements.json)"
+ },
+ {
+  "file": "f/0/screen.c",
+  "find": "return qsort(Screen_aptScreenManualRedrawQTaskSortVector, v2 - 1, 4, Screen_SortManualRedrawListCallback);",
+  "replace": "qsort(Screen_aptScreenManualRedrawQTaskSortVector, v2 - 1, 4, Screen_SortManualRedrawListCallback);\n  return 0;",
+  "why": "the function passes on what qsort left in eax; qsort returns nothing"
+ },
+ {
+  "file": "b/2/pc/pc_network.c",
+  "find": "*(IN_ADDR *)nIP = (IN_ADDR)ptSocket->sin_addr.S_un.S_addr;",
+  "replace": "*(IN_ADDR *)nIP = ptSocket->sin_addr;",
+  "why": "a 4-byte struct copy written as a cast to the struct type"
+ },
+ {
+  "file": "j/0/network/networkcommand.c",
+  "find": "qmemcpy((void *)\"wn command: '%s'\", \".ww\", 3);\n          aUnknownCommand_0[8] = v15;",
+  "replace": "/* not rebuilt: the original copies into a buffer the decompiler took for a string literal\n             (only the network console's eval reply) */",
+  "why": "misdecompiled write into initialized data; network console only"
+ },
+ {
+  "file": "e/3/hierarchy.c",
+  "find": "(*(void (__cdecl **)(int, int))(v20 + 24))(v20, v21);",
+  "replace": "(*(void (__cdecl **)(int, int, const void *, const void *))(v20 + 24))(v20, v21, ptAnim->zName, ptAnim);",
+  "why": "the anim table's pfCreateElement takes (table, hash, key, element); the compiler pushed ptAnim and ptAnim->zName before the hash call and the decompiler dropped both"
+ },
+ {
+  "file": "b/4/sortrender.c",
+  "find": "v15 = (struct SortRenderItem_t *)v20;",
+  "replace": "v15 = (struct SortRenderItem_t *)v13;",
+  "why": "the temporary list is the alloca'd buffer: after the alloca the decompiler names the new stack top as the old frame's bottom 12 bytes (v20), and the sort wrote its whole list over the stack"
+ },
+ {
+  "file": "b/4/sortrender.c",
+  "find": "ptTempList = (struct SortRenderItem_t *)v20;",
+  "replace": "ptTempList = (struct SortRenderItem_t *)v13;",
+  "why": "the temporary list is the alloca'd buffer: after the alloca the decompiler names the new stack top as the old frame's bottom 12 bytes (v20), and the sort wrote its whole list over the stack"
+ },
+ {
+  "file": "b/4/sortrender.c",
+  "find": "ptDestList = (struct SortRenderItem_t *)v20;",
+  "replace": "ptDestList = (struct SortRenderItem_t *)v13;",
+  "why": "the temporary list is the alloca'd buffer: after the alloca the decompiler names the new stack top as the old frame's bottom 12 bytes (v20), and the sort wrote its whole list over the stack"
+ }
+]

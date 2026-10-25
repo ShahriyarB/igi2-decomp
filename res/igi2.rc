@@ -1,0 +1,2 @@
+/* The retail image the globals live in: tools/export_data.py writes build/image.bin */
+IGI2IMAGE RCDATA "../build/image.bin"

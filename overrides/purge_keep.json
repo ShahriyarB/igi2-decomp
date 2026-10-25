@@ -1,0 +1,3 @@
+{
+ "0x5f550e": "Envmap_LoadFromMemory: IDirect3DTexture8::GetSurfaceLevel on the 2-D envmap (3 arguments, 12 bytes). The decompiler types the object through the field it shares with the cube map, as IDirect3DCubeTexture8, whose method at that slot is GetCubeMapSurface (16 bytes): correcting to 16 moved every frame offset by 4 and the C read a frame slot for ppxRawData."
+}

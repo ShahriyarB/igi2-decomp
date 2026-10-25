@@ -1,0 +1,14 @@
+{
+  "client_pdb": "C:/path/to/PDBs/Unknown/pc.pdb",
+  "client_map": "C:/path/to/PDBs/Unknown/pc.map",
+  "retail_exe": "C:/path/to/IGI 2/pc/igi2_1.0.exe",
+  "ds12_exe": "C:/path/to/PDBs/Dedicated Server 1.2/igi2.exe",
+  "ds12_pdb": "C:/path/to/PDBs/Dedicated Server 1.2/igi2.pdb",
+  "ds12_map": "C:/path/to/PDBs/Dedicated Server 1.2/igi2.map",
+  "game_dir": "C:/path/to/IGI 2/pc",
+  "ida_dir": "C:/Program Files/IDA Professional 9.1",
+  "vs_dir": "C:/Program Files/Microsoft Visual Studio/2026",
+  "final_pdb": "C:/path/to/PDBs/Unknown/igi2.pdb",
+  "final_map": "C:/path/to/PDBs/Unknown/igi2.map",
+  "dx8_sdk": "C:/path/to/DXSDK"
+}
